@@ -1,4 +1,4 @@
-package ru.allaber.shoppinglist.presentation
+package ru.allaber.shoppinglist.presentation.viewModel
 
 import androidx.lifecycle.ViewModel
 import ru.allaber.shoppinglist.data.repository.ShopListRepositoryImpl

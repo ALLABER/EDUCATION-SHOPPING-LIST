@@ -2,6 +2,7 @@ package ru.allaber.shoppinglist.data.repository
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import kotlin.random.Random
 import ru.allaber.shoppinglist.domain.model.ShopItem
 import ru.allaber.shoppinglist.domain.repository.ShopListRepository
 
@@ -10,14 +11,14 @@ object ShopListRepositoryImpl : ShopListRepository {
 
     private val shopList =
         sortedSetOf<ShopItem>(
-            { o1, o2 -> o1.id.compareTo(o2.id) },
+            { o1, o2 -> o1.id.compareTo(o2.id) }
         )
 
     private var autoIncrementId = 0
 
     init {
         for (i in 0 until 1000) {
-            val item = ShopItem("Name $i", i, true)
+            val item = ShopItem("Name $i", i, Random.nextBoolean())
             addShopItem(item)
         }
     }

@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">SHOPPING-LIST</string>
     <string name="add_new_shop_item">Add new shop item</string>
+    <string name="not_active">Not active</string>
+    <string name="active">Active</string>
+    <string name="shop_name_and_status">%1$s %2$s</string>
 </resources>
