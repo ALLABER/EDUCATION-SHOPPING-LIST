@@ -4,4 +4,7 @@
     <string name="not_active">Not active</string>
     <string name="active">Active</string>
     <string name="shop_name_and_status">%1$s %2$s</string>
+    <string name="name">Name:</string>
+    <string name="count">Count:</string>
+    <string name="save">Save</string>
 </resources>

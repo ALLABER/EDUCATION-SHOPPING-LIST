@@ -1,11 +1,11 @@
 package ru.allaber.shoppinglist.presentation.view
 
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ru.allaber.shoppinglist.R
 import ru.allaber.shoppinglist.presentation.adapter.ShopListAdapter
 import ru.allaber.shoppinglist.presentation.adapter.ShopListAdapter.Companion.MAX_POOL_SIZE
@@ -25,6 +25,13 @@ class MainActivity : AppCompatActivity() {
         viewModel.shopList.observe(this) {
             shopListAdapter.submitList(it)
         }
+
+        val floatingActionButton = findViewById<FloatingActionButton>(R.id.floatingActionButton)
+
+        floatingActionButton.setOnClickListener {
+            val intent = ShopItemActivity.newIntentAddItem(this)
+            startActivity(intent)
+        }
     }
 
     private fun setupRecyclerView() {
@@ -43,7 +50,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupOnShopItemClickListener() {
         shopListAdapter.onShopItemClickListener = {
-            Log.d("MainActivity", it.toString())
+            val intent = ShopItemActivity.newIntentEditItem(this, it.id)
+            startActivity(intent)
         }
     }
 
