@@ -1,5 +1,6 @@
 package ru.allaber.shoppinglist.presentation.view
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -18,6 +19,7 @@ import ru.allaber.shoppinglist.presentation.viewModel.ShopItemViewModel
 class ShopItemFragment : Fragment(R.layout.fragment_shop_item) {
 
     private lateinit var viewModel: ShopItemViewModel
+    private lateinit var onEditingFinishedListener: OnEditingFinishedListener
 
     private lateinit var tilName: TextInputLayout
     private lateinit var tilCount: TextInputLayout
@@ -27,6 +29,15 @@ class ShopItemFragment : Fragment(R.layout.fragment_shop_item) {
 
     private var screenMode = MODE_UNKNOWN
     private var shopItemId = ShopItem.UNDEFINED_ID
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        if (context is OnEditingFinishedListener) {
+            onEditingFinishedListener = context
+        } else {
+            error("Activity must implement OnEditingFinishedListener")
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,7 +65,7 @@ class ShopItemFragment : Fragment(R.layout.fragment_shop_item) {
     private fun observeViewModel() {
         viewModel.errorInputName.observe(viewLifecycleOwner) {
             val message = if (it) {
-                "errorInputName"
+                "Error input name"
             } else {
                 null
             }
@@ -64,7 +75,7 @@ class ShopItemFragment : Fragment(R.layout.fragment_shop_item) {
 
         viewModel.errorInputCount.observe(viewLifecycleOwner) {
             val message = if (it) {
-                "errorInputCount"
+                "Error input count"
             } else {
                 null
             }
@@ -73,7 +84,7 @@ class ShopItemFragment : Fragment(R.layout.fragment_shop_item) {
         }
 
         viewModel.shouldCloseScreen.observe(viewLifecycleOwner) {
-            activity?.onBackPressed()
+            onEditingFinishedListener.onEditingFinished()
         }
     }
 
@@ -140,6 +151,10 @@ class ShopItemFragment : Fragment(R.layout.fragment_shop_item) {
         edName = view.findViewById(R.id.edName)
         edCount = view.findViewById(R.id.edCount)
         buttonSave = view.findViewById(R.id.buttonSave)
+    }
+
+    interface OnEditingFinishedListener {
+        fun onEditingFinished()
     }
 
     companion object {
