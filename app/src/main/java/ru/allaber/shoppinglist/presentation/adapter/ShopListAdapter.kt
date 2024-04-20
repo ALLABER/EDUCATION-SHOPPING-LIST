@@ -25,17 +25,7 @@ class ShopListAdapter :
 
     override fun onBindViewHolder(viewHolder: ShopItemViewHolder, position: Int) {
         val shopItem = getItem(position)
-        val status = if (shopItem.enabled) {
-            viewHolder.itemView.context.getString(R.string.active)
-        } else {
-            viewHolder.itemView.context.getString(R.string.not_active)
-        }
-        viewHolder.tvName.text =
-            viewHolder.itemView.context.getString(
-                R.string.shop_name_and_status,
-                shopItem.name,
-                status
-            )
+        viewHolder.tvName.text = shopItem.name
         viewHolder.tvCount.text = shopItem.count.toString()
 
         viewHolder.itemView.setOnLongClickListener {
